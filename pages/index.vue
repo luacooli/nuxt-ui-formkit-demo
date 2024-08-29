@@ -9,7 +9,7 @@ import {
   residence_type,
 } from '~/components/new-patient/select-data'
 
-const toast = useToast()
+// const toast = useToast()
 
 const documentOptions = ref(document_types)
 const maritalStatusOptions = ref(marital_status)
@@ -19,9 +19,15 @@ const sexOptions = ref(sex)
 const residenceOptions = ref(residence_type)
 const submitted = ref(false)
 
-const submitHandler = async () => {
+const submitHandler = async (event) => {
+  console.log('isso ta acontecendo?')
+  console.log(event)
+  // event.preventDefault()
+
   await new Promise((r) => setTimeout(r, 1000))
   submitted.value = true
+
+  // toast.add({ title: 'Hello world!' })
 }
 </script>
 
@@ -40,9 +46,9 @@ const submitHandler = async () => {
       <FormKit
         id="registration-example"
         type="form"
-        :form-class="submitted ? 'hide' : 'show'"
         :actions="false"
-        @submit="submitHandler"
+        submit-label="Registrar dados"
+        @submit.preventDefault="submitHandler"
       >
         <!-- patient term -->
         <FormKit
@@ -65,7 +71,7 @@ const submitHandler = async () => {
               name="name"
               label="Nome"
               placeholder="Digite seu nome"
-              validation="required"
+              validation="required|alpha_spaces"
             />
           </div>
           <div class="col-span-2">
@@ -260,14 +266,26 @@ const submitHandler = async () => {
 
         <!-- contact and nationality information -->
         <div class="grid grid-cols-2 gap-3">
-          <FormKit
-            id="email"
-            name="email"
-            type="email"
-            label="Email"
-            placeholder="vikas@school.edu"
-            validation="*email"
-          />
+          <!-- has email -->
+          <div>
+            <FormKit
+              id="has-email"
+              type="checkbox"
+              label="Não possui email?"
+              name="has-email"
+              :value="false"
+              outer-class="relative top-0 right-0"
+            />
+            <FormKit
+              id="email"
+              name="email"
+              type="email"
+              label="Email"
+              placeholder="vikas@school.edu"
+              validation="*email"
+            />
+          </div>
+
           <FormKit
             id="nationality"
             name="nationality"
@@ -400,7 +418,7 @@ const submitHandler = async () => {
         </div>
 
         <!-- observation -->
-        <div class="grid grid-cols-1 gap-3">
+        <div class="grid grid-cols-1">
           <FormKit
             id="observation"
             type="textarea"
@@ -415,12 +433,32 @@ const submitHandler = async () => {
           />
         </div>
 
-        <FormKit
-          id="register__button"
-          type="submit"
-          label="Registrar dados"
-          @click="toast.add({ title: 'Hello world!' })"
-        />
+        <Formkit type="group" class="flex justify-start">
+          <FormKit
+            id="register__button"
+            type="submit"
+            label="Registrar dados"
+            prefix-icon="check"
+          />
+          <FormKit
+            id="reset__button"
+            type="button"
+            label="Fechar"
+            prefix-icon="close"
+          />
+          <FormKit
+            id="file__button"
+            type="button"
+            label="Info"
+            prefix-icon="info"
+          />
+          <FormKit
+            id="aux__button"
+            type="button"
+            label="Auxiliar"
+            prefix-icon="expand"
+          />
+        </Formkit>
       </FormKit>
     </UCard>
   </UContainer>

@@ -4,7 +4,7 @@
       <NuxtPage />
     </UContainer>
 
-    <UNotifications />
+    <!-- <UNotifications /> -->
   </div>
 </template>
 
