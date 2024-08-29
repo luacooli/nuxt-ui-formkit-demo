@@ -1,26 +1,28 @@
 <script setup>
-// import { ref } from 'vue'
+import { ref } from 'vue'
 import {
-  // document_types,
-  // marital_status,
-  // skin_color,
-  // health_plan,
+  document_types,
+  marital_status,
+  skin_color,
+  health_plan,
   sex,
+  residence_type,
 } from '~/components/new-patient/select-data' // Importando as opções
 
-// const toast = useToast()
+const toast = useToast()
 
-// const documentOptions = ref(document_types)
-// const maritalStatusOptions = ref(marital_status)
-// const skinColorOptions = ref(skin_color)
-// const healthPlanOptions = ref(health_plan)
+const documentOptions = ref(document_types)
+const maritalStatusOptions = ref(marital_status)
+const skinColorOptions = ref(skin_color)
+const healthPlanOptions = ref(health_plan)
 const sexOptions = ref(sex)
-// const submitted = ref(false)
+const residenceOptions = ref(residence_type)
+const submitted = ref(false)
 
-// const submitHandler = async () => {
-//   await new Promise((r) => setTimeout(r, 1000))
-//   submitted.value = true
-// }
+const submitHandler = async () => {
+  await new Promise((r) => setTimeout(r, 1000))
+  submitted.value = true
+}
 </script>
 
 <template>
@@ -34,9 +36,17 @@ const sexOptions = ref(sex)
           />
         </ColorScheme>
       </div>
-      <FormKit id="registration-example" type="form" @submit="submitHandler">
+
+      <FormKit
+        id="registration-example"
+        type="form"
+        :form-class="submitted ? 'hide' : 'show'"
+        :actions="false"
+        @submit="submitHandler"
+      >
         <!-- Ativo -->
         <FormKit
+          id="terms"
           type="checkbox"
           label="Ativo"
           name="terms"
@@ -46,12 +56,13 @@ const sexOptions = ref(sex)
           outer-class="relative top-0 right-0"
         />
 
+        <!-- main information -->
         <div class="main-data grid grid-cols-12 gap-3">
           <div class="col-span-6">
             <FormKit
+              id="name"
               type="text"
               name="name"
-              id="name"
               label="Nome"
               placeholder="Digite seu nome"
               validation="required|length:3"
@@ -60,198 +71,296 @@ const sexOptions = ref(sex)
           </div>
           <div class="col-span-2">
             <FormKit
+              id="medical-record"
               type="text"
               name="medical-record"
-              id="medical-record"
               label="Prontuário"
               placeholder="0000"
             />
           </div>
           <div class="col-span-2">
             <FormKit
-              type="date"
-              name="birthdate"
               id="birthdate"
+              type="datepicker"
+              :format="{ date: 'short' }"
+              popover
+              name="birthdate"
               label="D. Nascimento"
+              validation="required"
               placeholder="Selecione uma data"
             />
           </div>
           <FormKit
+            id="age"
             type="number"
             name="age"
-            id="age"
             label="Idade"
             placeholder="Idade"
           />
           <FormKit
+            id="sex"
             type="select"
             label="Sexo"
             name="sex"
-            id="sex"
             :options="['Feminino', 'Masculino', 'Prefirio não identificar']"
           />
         </div>
 
+        <!-- additional information -->
         <div class="main-data grid grid-cols-12 gap-3">
           <div class="col-span-2">
             <FormKit
-              type="number"
+              id="phone"
+              type="mask"
+              mask="(##) ####-####"
               name="phone"
               label="Telefone"
-              validation="required|number|between:9,11"
-              placeholder="(00) 00000-0000"
+              validation="number|length:10"
+              placeholder="(00) 0000-0000"
             />
           </div>
           <div class="col-span-2">
             <FormKit
-              type="number"
+              id="cellphone"
+              type="mask"
+              mask="(##) #####-####"
               name="cellphone"
               label="Celular"
-              validation="required|number|between:9,11"
+              validation="required|number|length:11"
               placeholder="(00) 00000-0000"
             />
           </div>
           <div class="col-span-2">
             <FormKit
-              type="number"
+              id="whatsapp"
+              type="mask"
+              mask="(##) #####-####"
               name="whatsapp"
               label="Web"
-              validation="required|number|between:9,11"
+              validation="number|length:11"
               placeholder="(00) 00000-0000"
             />
           </div>
           <div class="col-span-4">
-            <FormKit type="number" name="contact" label="Contato" />
+            <FormKit id="contact" name="contact" type="text" label="Contato" />
           </div>
           <div class="col-span-1">
-            <FormKit type="number" name="weight" label="Peso" />
+            <FormKit
+              id="weight"
+              type="mask"
+              mask="*kg"
+              name="weight"
+              label="Peso"
+            />
           </div>
 
           <div class="col-span-1">
-            <FormKit type="number" name="height" label="Altura" />
+            <FormKit
+              id="height"
+              type="mask"
+              mask="#,##m"
+              name="height"
+              label="Altura"
+            />
           </div>
         </div>
 
+        <!-- documents -->
         <div class="docs-data grid grid-cols-12 gap-3">
-          <FormKit
-            type="select"
-            label="Tipo Documento"
-            name="document"
-            id="document"
-            :options="['RG', 'CPF', 'Passaporte']"
-          />
-          <FormKit
-            type="number"
-            name="doc-number"
-            id="doc-number"
-            validation="required|between:8,11"
-            label="Nº Documento"
-          />
-          <FormKit
-            type="text"
-            name="issuing-body"
-            id="issuing-body"
-            label="Órgão Emissor"
-          />
-          <FormKit
-            type="date"
-            name="shipment-date"
-            id="shipment-date"
-            label="D. expedição"
-          />
-          <FormKit type="number" name="cns" id="cns" label="CNS" />
-          <FormKit
-            type="number"
-            name="cpf"
-            id="cpf"
-            validation="required|number|length:3"
-            label="CPF"
-          />
+          <div class="col-span-2">
+            <FormKit
+              id="document-type"
+              type="select"
+              label="Tipo Documento"
+              name="document-type"
+              :options="documentOptions"
+            />
+          </div>
+          <div class="col-span-2">
+            <FormKit
+              id="doc-number"
+              type="number"
+              name="doc-number"
+              validation="required|between:8,11"
+              label="Nº Documento"
+            />
+          </div>
+          <div class="col-span-2">
+            <FormKit
+              id="issuing-body"
+              type="text"
+              name="issuing-body"
+              label="Órgão Emissor"
+            />
+          </div>
+          <div class="col-span-2">
+            <FormKit
+              id="shipment-date"
+              type="date"
+              name="shipment-date"
+              label="D. expedição"
+            />
+          </div>
+          <div class="col-span-2">
+            <FormKit id="cns" type="number" name="cns" label="CNS" />
+          </div>
+          <div class="col-span-2">
+            <FormKit
+              id="cpf"
+              type="mask"
+              mask="###.###.###-##"
+              name="cpf"
+              validation="required|number|length:3"
+              label="CPF"
+            />
+          </div>
         </div>
 
+        <!-- personal information -->
         <div class="grid grid-cols-12 gap-3">
           <div class="col-span-4">
             <FormKit
+              id="marital-status"
               type="select"
               label="Estado civil"
               name="marital-status"
-              :options="['Solteiro', 'Casado', 'Divorciado', 'União estável']"
+              :options="maritalStatusOptions"
             />
           </div>
           <div class="col-span-2">
             <FormKit
+              id="skin-color"
               type="select"
               label="Cor"
-              name="color"
-              :options="['Branco', 'Pardo', 'Preto', 'Amarelo']"
+              name="skin-color"
+              :options="skinColorOptions"
             />
           </div>
           <div class="col-span-6">
             <FormKit
-              type="select"
+              id="profession"
+              type="dropdown"
               label="Profissão"
               name="profession"
               :options="['Estudante', 'Desenvolvedor', 'Médico', 'Advogado']"
             />
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-3">
-          <FormKit type="email" label="Email" placeholder="vikas@school.edu" />
-          <FormKit type="text" label="Naturalidade" />
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <FormKit type="text" label="Nome da mãe" />
-          <FormKit type="text" label="Nome do pai" />
-        </div>
 
+        <!-- parental information -->
         <div class="grid grid-cols-2 gap-3">
           <FormKit
+            id="email"
+            name="email"
+            type="email"
+            label="Email"
+            placeholder="vikas@school.edu"
+            validation="email"
+          />
+          <FormKit
+            id="nationality"
+            name="nationality"
+            type="text"
+            label="Naturalidade"
+            validation="required"
+          />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <FormKit
+            id="mother-name"
+            name="mother-name"
+            type="text"
+            label="Nome da Mãe"
+            validation="required"
+          />
+          <FormKit
+            id="father-name"
+            name="father-name"
+            type="text"
+            label="Nome do Pai"
+          />
+        </div>
+
+        <!-- health information -->
+        <div class="grid grid-cols-2 gap-3">
+          <FormKit
+            id="health-plan"
             type="select"
             label="Plano de saúde"
             name="health-plan"
-            id="health-plan"
-            :options="['Particular', 'Amil', 'Sulamérica', 'Bradesco']"
+            :options="healthPlanOptions"
           />
-          <FormKit type="text" label="Titular" />
+          <FormKit
+            id="health-plan-owner"
+            name="health-plan-owner"
+            type="text"
+            label="Titular"
+          />
         </div>
 
+        <!-- address information -->
         <div class="grid grid-cols-12 gap-3">
           <div class="col-span-2">
             <FormKit
-              type="number"
+              id="cep"
+              name="cep"
+              type="mask"
+              mask="##.###-###"
               label="CEP"
               validation="required|number|length:8"
             />
           </div>
           <div class="col-span-4">
-            <FormKit type="text" label="Logradouro" />
+            <FormKit
+              id="address"
+              name="address"
+              type="text"
+              label="Logradouro"
+            />
           </div>
           <div class="col-span-2">
             <FormKit
+              id="address-type"
               type="select"
               label="Tipo"
               name="address-type"
-              id="address-type"
-              :options="['Casa', 'Trabalho']"
+              :options="residenceOptions"
             />
           </div>
           <div class="col-span-1">
-            <FormKit type="number" label="Número" />
+            <FormKit
+              id="address-number"
+              name="address-number"
+              type="number"
+              label="Número"
+            />
           </div>
           <div class="col-span-3">
-            <FormKit type="text" label="Complemento" />
+            <FormKit
+              id="address-complement"
+              name="address-complement"
+              type="text"
+              label="Complemento"
+            />
           </div>
         </div>
+
+        <!-- additional address information -->
         <div class="grid grid-cols-12 gap-3">
           <div class="col-span-4">
-            <FormKit type="text" label="Bairro" />
+            <FormKit
+              id="neighborhood"
+              name="neighborhood"
+              type="text"
+              label="Bairro"
+            />
           </div>
           <div class="col-span-5">
             <FormKit
+              id="city"
               type="select"
               label="Cidade"
               name="city"
-              id="city"
               :options="[
                 'São Paulo',
                 'Rio de Janeiro',
@@ -262,6 +371,7 @@ const sexOptions = ref(sex)
           </div>
           <div class="col-span-1">
             <FormKit
+              id="state"
               type="select"
               label="Estado"
               name="state"
@@ -269,16 +379,17 @@ const sexOptions = ref(sex)
             />
           </div>
           <div class="col-span-2">
-            <FormKit type="text" label="IBGE" />
+            <FormKit id="ibge" name="ibge" type="text" label="IBGE" />
           </div>
         </div>
 
+        <!-- observation -->
         <div class="grid grid-cols-1 gap-3">
           <FormKit
+            id="observation"
             type="textarea"
             label="Observação"
             name="observation"
-            id="observation"
             validation="length:0,120"
             validation-visibility="live"
             :validation-messages="{
@@ -287,15 +398,13 @@ const sexOptions = ref(sex)
             class="min-w-full max-w-full"
           />
         </div>
-      </FormKit>
 
-      <UButton
-        icon="i-heroicons-book-open"
-        to="https://ui.nuxt.com"
-        target="_blank"
-      >
-        Verificar pacientes
-      </UButton>
+        <FormKit
+          type="submit"
+          label="Registrar dados"
+          @click="toast.add({ title: 'Hello world!' })"
+        />
+      </FormKit>
     </UCard>
   </UContainer>
 </template>

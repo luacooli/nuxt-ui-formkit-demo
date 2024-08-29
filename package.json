@@ -16,7 +16,9 @@
     "nuxt": "^3.12.4"
   },
   "dependencies": {
+    "@formkit/icons": "^1.6.5",
     "@formkit/nuxt": "^1.6.5",
+    "@formkit/pro": "^0.127.0",
     "vue-the-mask": "^0.11.1"
   }
 }
