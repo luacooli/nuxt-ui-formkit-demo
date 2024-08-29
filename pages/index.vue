@@ -7,7 +7,7 @@ import {
   health_plan,
   sex,
   residence_type,
-} from '~/components/new-patient/select-data' // Importando as opções
+} from '~/components/new-patient/select-data'
 
 const toast = useToast()
 
@@ -44,7 +44,7 @@ const submitHandler = async () => {
         :actions="false"
         @submit="submitHandler"
       >
-        <!-- Ativo -->
+        <!-- patient term -->
         <FormKit
           id="terms"
           type="checkbox"
@@ -65,8 +65,7 @@ const submitHandler = async () => {
               name="name"
               label="Nome"
               placeholder="Digite seu nome"
-              validation="required|length:3"
-              class="min-w-full max-w-full"
+              validation="required"
             />
           </div>
           <div class="col-span-2">
@@ -115,7 +114,10 @@ const submitHandler = async () => {
               mask="(##) ####-####"
               name="phone"
               label="Telefone"
-              validation="number|length:10"
+              validation="length:10"
+              :validation-messages="{
+                length: 'Telefone deve conter 10 caracteres',
+              }"
               placeholder="(00) 0000-0000"
             />
           </div>
@@ -126,7 +128,10 @@ const submitHandler = async () => {
               mask="(##) #####-####"
               name="cellphone"
               label="Celular"
-              validation="required|number|length:11"
+              validation="required|length:11"
+              :validation-messages="{
+                length: 'Celular deve conter 11 caracteres',
+              }"
               placeholder="(00) 00000-0000"
             />
           </div>
@@ -137,7 +142,10 @@ const submitHandler = async () => {
               mask="(##) #####-####"
               name="whatsapp"
               label="Web"
-              validation="number|length:11"
+              validation="length:11"
+              :validation-messages="{
+                length: 'Telefone web deve conter 10 caracteres',
+              }"
               placeholder="(00) 00000-0000"
             />
           </div>
@@ -181,7 +189,7 @@ const submitHandler = async () => {
               id="doc-number"
               type="number"
               name="doc-number"
-              validation="required|between:8,11"
+              validation="required|length:8,11"
               label="Nº Documento"
             />
           </div>
@@ -210,7 +218,10 @@ const submitHandler = async () => {
               type="mask"
               mask="###.###.###-##"
               name="cpf"
-              validation="required|number|length:3"
+              validation="required|length:11"
+              :validation-messages="{
+                length: 'CPF deve conter 11 caracteres',
+              }"
               label="CPF"
             />
           </div>
@@ -247,7 +258,7 @@ const submitHandler = async () => {
           </div>
         </div>
 
-        <!-- parental information -->
+        <!-- contact and nationality information -->
         <div class="grid grid-cols-2 gap-3">
           <FormKit
             id="email"
@@ -255,7 +266,7 @@ const submitHandler = async () => {
             type="email"
             label="Email"
             placeholder="vikas@school.edu"
-            validation="email"
+            validation="*email"
           />
           <FormKit
             id="nationality"
@@ -265,6 +276,8 @@ const submitHandler = async () => {
             validation="required"
           />
         </div>
+
+        <!-- parental information -->
         <div class="grid grid-cols-2 gap-3">
           <FormKit
             id="mother-name"
@@ -307,7 +320,10 @@ const submitHandler = async () => {
               type="mask"
               mask="##.###-###"
               label="CEP"
-              validation="required|number|length:8"
+              validation="required|length:8"
+              :validation-messages="{
+                length: 'CEP deve conter 8 caracteres',
+              }"
             />
           </div>
           <div class="col-span-4">
@@ -400,6 +416,7 @@ const submitHandler = async () => {
         </div>
 
         <FormKit
+          id="register__button"
           type="submit"
           label="Registrar dados"
           @click="toast.add({ title: 'Hello world!' })"

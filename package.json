@@ -13,6 +13,7 @@
     "@nuxt/devtools": "latest",
     "@nuxt/eslint": "^0.5.3",
     "@nuxt/ui": "^2.18.4",
+    "cypress": "^13.14.0",
     "nuxt": "^3.12.4"
   },
   "dependencies": {

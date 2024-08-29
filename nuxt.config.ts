@@ -11,9 +11,9 @@ export default defineNuxtConfig({
     },
   },
 
-  formkit: {
-    configFile: './formkit.config.ts',
-  },
+  // formkit: {
+  //   configFile: './formkit.config.ts',
+  // },
 
   compatibilityDate: '2024-08-28',
 })
