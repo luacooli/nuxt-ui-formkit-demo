@@ -8,6 +8,7 @@ import {
   sex,
   residence_type,
 } from '~/components/new-patient/select-data'
+import { changeLocale } from '@formkit/vue'
 
 // const toast = useToast()
 
@@ -18,6 +19,13 @@ const healthPlanOptions = ref(health_plan)
 const sexOptions = ref(sex)
 const residenceOptions = ref(residence_type)
 const submitted = ref(false)
+const currentLang = ref('pt')
+const hasEmail = ref(false)
+
+const changeLocaleHandle = () => {
+  currentLang.value = currentLang.value === 'pt' ? 'en' : 'pt'
+  changeLocale(currentLang.value)
+}
 
 const submitHandler = async (event) => {
   console.log('isso ta acontecendo?')
@@ -34,15 +42,6 @@ const submitHandler = async (event) => {
 <template>
   <UContainer>
     <UCard class="my-10 mx-10">
-      <div class="flex justify-end">
-        <ColorScheme>
-          <USelect
-            v-model="$colorMode.preference"
-            :options="['system', 'light', 'dark']"
-          />
-        </ColorScheme>
-      </div>
-
       <FormKit
         id="registration-example"
         type="form"
@@ -50,17 +49,36 @@ const submitHandler = async (event) => {
         submit-label="Registrar dados"
         @submit.preventDefault="submitHandler"
       >
-        <!-- patient term -->
-        <FormKit
-          id="terms"
-          type="checkbox"
-          label="Ativo"
-          name="terms"
-          :value="true"
-          validation="accepted"
-          validation-visibility="dirty"
-          outer-class="relative top-0 right-0"
-        />
+        <div class="flex">
+          <!-- patient term -->
+          <FormKit
+            id="terms"
+            type="checkbox"
+            label="Ativo"
+            name="terms"
+            :value="true"
+            validation="accepted"
+            validation-visibility="dirty"
+            outer-class="relative top-0 right-0"
+          />
+          <!-- language -->
+          <FormKit
+            label="Idioma"
+            type="toggle"
+            alt-label-position
+            off-value-label="PT"
+            on-value-label="EN"
+            value-label-display="inner"
+            @click="changeLocaleHandle"
+          />
+          <!-- theme -->
+          <ColorScheme>
+            <USelect
+              v-model="$colorMode.preference"
+              :options="['system', 'light', 'dark']"
+            />
+          </ColorScheme>
+        </div>
 
         <!-- main information -->
         <div class="main-data grid grid-cols-12 gap-3">
@@ -71,7 +89,7 @@ const submitHandler = async (event) => {
               name="name"
               label="Nome"
               placeholder="Digite seu nome"
-              validation="required|alpha_spaces"
+              validation="required|contains_alpha_spaces"
             />
           </div>
           <div class="col-span-2">
@@ -273,16 +291,21 @@ const submitHandler = async (event) => {
               type="checkbox"
               label="Não possui email?"
               name="has-email"
-              :value="false"
+              :value="hasEmail"
               outer-class="relative top-0 right-0"
+              @input="(event) => (hasEmail = event)"
             />
             <FormKit
               id="email"
               name="email"
               type="email"
               label="Email"
+              :disabled="hasEmail"
               placeholder="vikas@school.edu"
-              validation="*email"
+              validation="*email|ends_with:.com"
+              :validation-messages="{
+                ends_with: 'Insira um email que terminei com .com',
+              }"
             />
           </div>
 
