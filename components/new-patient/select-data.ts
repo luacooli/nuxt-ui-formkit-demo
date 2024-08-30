@@ -24,6 +24,7 @@ export const health_plan = [
 	{ label: 'Samp', value: 'Samp' },
 	{ label: 'Bradesco', value: 'Bradesco' },
 	{ label: 'Amil', value: 'Amil' },
+	{ label: 'SulAmérica', value: 'SulAmerica' },
 ];
 
 export const sex = [
@@ -35,4 +36,11 @@ export const sex = [
 export const residence_type = [
 	{ label: 'Residencial', value: 'Residencial' },
 	{ label: 'Comercial', value: 'Comercial' },
+];
+
+export const profession = [
+	{ label: 'Estudante', value: 'Estudante' },
+	{ label: 'Desenvolvedor(a)', value: 'Desenvolvedor' },
+	{ label: 'Médico', value: 'Médico' },
+	{ label: 'Advogado', value: 'Advogado' },
 ];

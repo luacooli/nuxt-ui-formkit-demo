@@ -7,6 +7,7 @@ import {
   health_plan,
   sex,
   residence_type,
+  profession,
 } from '~/components/new-patient/select-data'
 import { changeLocale } from '@formkit/vue'
 
@@ -18,6 +19,8 @@ const skinColorOptions = ref(skin_color)
 const healthPlanOptions = ref(health_plan)
 const sexOptions = ref(sex)
 const residenceOptions = ref(residence_type)
+const professionOptions = ref(profession)
+
 const submitted = ref(false)
 const currentLang = ref('pt')
 const hasEmail = ref(false)
@@ -60,6 +63,8 @@ const submitHandler = async (event) => {
           />
           <!-- language -->
           <FormKit
+            id="language"
+            name="language"
             label="Idioma"
             type="toggle"
             alt-label-position
@@ -177,7 +182,7 @@ const submitHandler = async (event) => {
             <FormKit
               id="weight"
               type="mask"
-              mask="##,#kg"
+              mask="###,#kg"
               name="weight"
               label="Peso"
             />
@@ -274,7 +279,7 @@ const submitHandler = async (event) => {
               type="dropdown"
               label="Profissão"
               name="profession"
-              :options="['Estudante', 'Desenvolvedor', 'Médico', 'Advogado']"
+              :options="professionOptions"
             />
           </div>
         </div>
@@ -299,11 +304,11 @@ const submitHandler = async (event) => {
               label="Email"
               :disabled="hasEmail"
               placeholder="vikas@school.com"
-              validation="ends_with:.com|*email"
               :validation-messages="{
                 ends_with: 'Insira um email que terminei com .com',
               }"
             />
+            <!-- validation="ends_with:.com|*email" -->
           </div>
 
           <FormKit
