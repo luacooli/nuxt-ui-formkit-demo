@@ -40,7 +40,18 @@ const submitHandler = async (event) => {
 
 <template>
   <UContainer>
-    <UCard class="my-10 mx-10">
+    <UButton
+      block
+      class="m-10"
+      color="green"
+      variant="outline"
+      to="schema-form"
+      icon="i-heroicons-clipboard-document-20-solid"
+    >
+      Schema Form
+    </UButton>
+
+    <UCard class="m-10">
       <FormKit
         id="registration-example"
         type="form"
