@@ -28,10 +28,6 @@ const changeLocaleHandle = () => {
 }
 
 const submitHandler = async (event) => {
-  console.log('isso ta acontecendo?')
-  console.log(event)
-  // event.preventDefault()
-
   await new Promise((r) => setTimeout(r, 1000))
   submitted.value = true
 
@@ -49,6 +45,7 @@ const submitHandler = async (event) => {
         submit-label="Registrar dados"
         @submit.preventDefault="submitHandler"
       >
+        <!-- header: patient terms, language, system theme -->
         <div class="flex">
           <!-- patient term -->
           <FormKit
@@ -81,7 +78,7 @@ const submitHandler = async (event) => {
         </div>
 
         <!-- main information -->
-        <div class="main-data grid grid-cols-12 gap-3">
+        <div class="grid grid-cols-12 gap-3">
           <div class="col-span-6">
             <FormKit
               id="name"
@@ -125,12 +122,12 @@ const submitHandler = async (event) => {
             type="select"
             label="Sexo"
             name="sex"
-            :options="['Feminino', 'Masculino', 'Prefirio não identificar']"
+            :options="sexOptions"
           />
         </div>
 
         <!-- additional information -->
-        <div class="main-data grid grid-cols-12 gap-3">
+        <div class="grid grid-cols-12 gap-3">
           <div class="col-span-2">
             <FormKit
               id="phone"
@@ -180,7 +177,7 @@ const submitHandler = async (event) => {
             <FormKit
               id="weight"
               type="mask"
-              mask="*kg"
+              mask="##,#kg"
               name="weight"
               label="Peso"
             />
@@ -198,11 +195,11 @@ const submitHandler = async (event) => {
         </div>
 
         <!-- documents -->
-        <div class="docs-data grid grid-cols-12 gap-3">
+        <div class="grid grid-cols-12 gap-3">
           <div class="col-span-2">
             <FormKit
               id="document-type"
-              type="select"
+              type="dropdown"
               label="Tipo Documento"
               name="document-type"
               :options="documentOptions"
@@ -301,8 +298,8 @@ const submitHandler = async (event) => {
               type="email"
               label="Email"
               :disabled="hasEmail"
-              placeholder="vikas@school.edu"
-              validation="*email|ends_with:.com"
+              placeholder="vikas@school.com"
+              validation="ends_with:.com|*email"
               :validation-messages="{
                 ends_with: 'Insira um email que terminei com .com',
               }"
@@ -361,10 +358,7 @@ const submitHandler = async (event) => {
               type="mask"
               mask="##.###-###"
               label="CEP"
-              validation="required|length:8"
-              :validation-messages="{
-                length: 'CEP deve conter 8 caracteres',
-              }"
+              validation="length:8|required"
             />
           </div>
           <div class="col-span-4">
@@ -447,7 +441,7 @@ const submitHandler = async (event) => {
             type="textarea"
             label="Observação"
             name="observation"
-            validation="length:0,120"
+            validation="length:0,30"
             validation-visibility="live"
             :validation-messages="{
               length: 'Observação não pode conter mais do que 120 characteres.',
@@ -456,6 +450,7 @@ const submitHandler = async (event) => {
           />
         </div>
 
+        <!-- actions button -->
         <Formkit type="group" class="flex justify-start">
           <FormKit
             id="register__button"

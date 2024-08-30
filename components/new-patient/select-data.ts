@@ -29,6 +29,7 @@ export const health_plan = [
 export const sex = [
 	{ label: 'Feminino', value: 'Feminino' },
 	{ label: 'Masculino', value: 'Masculino' },
+	{ label: 'Prefirio não identificar', value: 'Nao-identificado' },
 ];
 
 export const residence_type = [
