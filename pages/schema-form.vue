@@ -1,6 +1,6 @@
 <script setup>
 import { FormKitSchema } from '@formkit/vue'
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import {
   document_types,
   marital_status,
@@ -25,7 +25,6 @@ const stateOptions = ref(state)
 
 const submitted = ref(false)
 const currentLang = ref('pt')
-const hasEmail = ref(false)
 
 const formSchema = [
   {
@@ -268,10 +267,17 @@ const formSchema = [
         },
         children: [
           {
+            $formkit: 'checkbox',
+            id: 'has_email',
+            name: 'has_email',
+            label: 'Não possui email?',
+          },
+          {
             $formkit: 'email',
             id: 'email',
             name: 'email',
             label: 'Email',
+            disabled: '$get(has_email).value',
             validation: 'email',
           },
           {
@@ -441,7 +447,6 @@ const formSchema = [
 <template>
   <UContainer>
     <UButton
-      block
       class="m-10"
       color="green"
       variant="outline"
@@ -449,6 +454,15 @@ const formSchema = [
       icon="i-heroicons-clipboard-document-20-solid"
     >
       Tagged Form
+    </UButton>
+    <UButton
+      class="m-10"
+      color="green"
+      variant="outline"
+      to="/test"
+      icon="i-heroicons-clipboard-document-20-solid"
+    >
+      Test
     </UButton>
 
     <UCard class="m-10">

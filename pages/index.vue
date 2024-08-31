@@ -332,7 +332,7 @@ const submitHandler = async (event) => {
           </div>
         </div>
 
-        <!-- contact and nationality information -->
+        <!-- email and nationality information -->
         <div class="grid grid-cols-2 gap-3">
           <!-- has email -->
           <div>
