@@ -32,6 +32,36 @@ const formSchema = [
     $formkit: 'form',
     id: 'registration-schema-example',
     children: [
+      // header: patient terms, language
+      {
+        $el: 'div',
+        attrs: {
+          class: 'grid grid-cols-12 gap-3',
+        },
+        children: [
+          {
+            $formkit: 'checkbox',
+            id: 'terms',
+            name: 'terms',
+            label: 'Ativo',
+            value: true,
+            validation: 'accepted',
+            'outer-class': 'col-start-1',
+          },
+          {
+            $formkit: 'toggle',
+            id: 'language',
+            name: 'language',
+            label: 'Idioma',
+            'alt-label-position': true,
+            'off-value-label': 'PT',
+            'on-value-label': 'EN',
+            'value-label-display': 'inner',
+            'outer-class': 'col-start-12',
+          },
+          // select theme !!!!!!
+        ],
+      },
       // main information
       {
         $el: 'div',
@@ -71,7 +101,6 @@ const formSchema = [
             name: 'medical-record',
             label: 'Idade',
             validation: 'required',
-            placeholder: 'Selecione uma data',
             'outer-class': 'col-span-1',
           },
           {
@@ -231,7 +260,7 @@ const formSchema = [
           },
         ],
       },
-      // contact and nationality information
+      // email and nationality information
       {
         $el: 'div',
         attrs: {
