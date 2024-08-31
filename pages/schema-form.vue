@@ -267,18 +267,31 @@ const formSchema = [
         },
         children: [
           {
-            $formkit: 'checkbox',
-            id: 'has_email',
-            name: 'has_email',
-            label: 'Não possui email?',
-          },
-          {
             $formkit: 'email',
             id: 'email',
             name: 'email',
             label: 'Email',
             disabled: '$get(has_email).value',
             validation: 'email',
+
+            // custom schema
+            sectionsSchema: {
+              label: {
+                // which prop? label
+                children: [
+                  '$label', // render label
+                  {
+                    $formkit: 'checkbox', // add checkbox next to the label
+                    id: 'has_email',
+                    name: 'has_email',
+                    label: 'Não possui email?',
+                  },
+                ],
+                attrs: {
+                  class: 'flex justify-between items-end',
+                },
+              },
+            },
           },
           {
             $formkit: 'text',
