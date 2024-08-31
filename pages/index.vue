@@ -1,4 +1,37 @@
 <script setup>
+// {
+//   $formkit: 'email',
+//   id: 'email',
+//   name: 'email',
+//   label: false,
+//   children: [
+//     {
+//       $el: 'label',
+//       attrs: {
+//         for: 'email',
+//       }
+//     },
+//     children: [
+//       {
+//         $el: 'span',
+
+//         // children: [
+//         //   {
+//         //     $formkit: 'checkbox',
+//         //     id: 'has-email',
+//         //     name: 'has-email',
+//         //     value: 'hasEmail',
+//         //     label: 'Não possui email?',
+//         //     'outer-class': 'col-span-4',
+//         //   },
+//         // ],
+//       },
+//     ],
+//   ],
+//   placeholder: 'vikas@school.com',
+//   validation: 'email',
+//   'outer-class': 'col-span-2',
+// },
 import { ref } from 'vue'
 import {
   document_types,
@@ -8,6 +41,8 @@ import {
   sex,
   residence_type,
   profession,
+  city,
+  state,
 } from '~/components/new-patient/select-data'
 import { changeLocale } from '@formkit/vue'
 
@@ -20,6 +55,8 @@ const healthPlanOptions = ref(health_plan)
 const sexOptions = ref(sex)
 const residenceOptions = ref(residence_type)
 const professionOptions = ref(profession)
+const cityOptions = ref(city)
+const stateOptions = ref(state)
 
 const submitted = ref(false)
 const currentLang = ref('pt')
@@ -314,12 +351,9 @@ const submitHandler = async (event) => {
               type="email"
               label="Email"
               :disabled="hasEmail"
+              validation="email"
               placeholder="vikas@school.com"
-              :validation-messages="{
-                ends_with: 'Insira um email que terminei com .com',
-              }"
             />
-            <!-- validation="ends_with:.com|*email" -->
           </div>
 
           <FormKit
@@ -428,12 +462,7 @@ const submitHandler = async (event) => {
               type="select"
               label="Cidade"
               name="city"
-              :options="[
-                'São Paulo',
-                'Rio de Janeiro',
-                'Espirito Santo',
-                'Salvador',
-              ]"
+              :options="cityOptions"
             />
           </div>
           <div class="col-span-1">
@@ -442,7 +471,7 @@ const submitHandler = async (event) => {
               type="select"
               label="Estado"
               name="state"
-              :options="['SP', 'RJ', 'ES', 'BA']"
+              :options="stateOptions"
             />
           </div>
           <div class="col-span-2">

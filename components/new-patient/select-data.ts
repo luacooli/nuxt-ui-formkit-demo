@@ -1,46 +1,60 @@
 export const document_types = [
-	{ label: 'RG', value: 'RG' },
-	{ label: 'CPF', value: 'CPF' },
-	{ label: 'CNH', value: 'CNH' },
-	{ label: 'Passaporte', value: 'Passaporte' },
-];
+  { label: 'RG', value: 'rg' },
+  { label: 'CPF', value: 'cpf' },
+  { label: 'CNH', value: 'cnh' },
+  { label: 'Passaporte', value: 'passaporte' },
+]
 
 export const marital_status = [
-	{ label: 'Solteiro(a)', value: 'Solteiro' },
-	{ label: 'Casado(a)', value: 'Casado' },
-	{ label: 'Divorciado(a)', value: 'Divorciado' },
-	{ label: 'União estável', value: 'Uniao-estavel' },
-];
+  { label: 'Solteiro(a)', value: 'solteiro' },
+  { label: 'Casado(a)', value: 'casado' },
+  { label: 'Divorciado(a)', value: 'divorciado' },
+  { label: 'União estável', value: 'uniao-estavel' },
+]
 
 export const skin_color = [
-	{ label: 'Preto', value: 'Preto' },
-	{ label: 'Pardo', value: 'Pardo' },
-	{ label: 'Branco', value: 'Branco' },
-	{ label: 'Indígena', value: 'Indígena' },
-];
+  { label: 'Preto', value: 'preto' },
+  { label: 'Pardo', value: 'pardo' },
+  { label: 'Branco', value: 'branco' },
+  { label: 'Indígena', value: 'indigena' },
+]
 
 export const health_plan = [
-	{ label: 'Unimed', value: 'Unimed' },
-	{ label: 'Samp', value: 'Samp' },
-	{ label: 'Bradesco', value: 'Bradesco' },
-	{ label: 'Amil', value: 'Amil' },
-	{ label: 'SulAmérica', value: 'SulAmerica' },
-];
+  { label: 'Unimed', value: 'unimed' },
+  { label: 'Samp', value: 'samp' },
+  { label: 'Bradesco', value: 'bradesco' },
+  { label: 'Amil', value: 'amil' },
+  { label: 'SulAmérica', value: 'sulAmerica' },
+]
 
 export const sex = [
-	{ label: 'Feminino', value: 'Feminino' },
-	{ label: 'Masculino', value: 'Masculino' },
-	{ label: 'Prefirio não identificar', value: 'Nao-identificado' },
-];
+  { label: 'Feminino', value: 'feminino' },
+  { label: 'Masculino', value: 'masculino' },
+  { label: 'Prefirio não identificar', value: 'nao-identificado' },
+]
 
 export const residence_type = [
-	{ label: 'Residencial', value: 'Residencial' },
-	{ label: 'Comercial', value: 'Comercial' },
-];
+  { label: 'Residencial', value: 'residencial' },
+  { label: 'Comercial', value: 'comercial' },
+]
 
 export const profession = [
-	{ label: 'Estudante', value: 'Estudante' },
-	{ label: 'Desenvolvedor(a)', value: 'Desenvolvedor' },
-	{ label: 'Médico', value: 'Médico' },
-	{ label: 'Advogado', value: 'Advogado' },
-];
+  { label: 'Estudante', value: 'estudante' },
+  { label: 'Desenvolvedor(a)', value: 'desenvolvedor' },
+  { label: 'Médico', value: 'médico' },
+  { label: 'Advogado', value: 'advogado' },
+]
+
+export const city = [
+  { label: 'São Paulo', value: 'sao-paulo' },
+  { label: 'Rio de Janeiro', value: 'rio-de-janeiro' },
+  { label: 'Vitória', value: 'vitoria' },
+  { label: 'Salvador', value: 'salvador' },
+]
+
+export const state = [
+  { label: 'SP', value: 'sao-paulo' },
+  { label: 'RJ', value: 'rio-de-janeiro' },
+  { label: 'ES', value: 'espirito-santo' },
+  { label: 'BA', value: 'bahia' },
+]
