@@ -29,6 +29,7 @@ const currentLang = ref('pt')
 const formSchema = [
   {
     $formkit: 'form',
+    actions: false,
     id: 'registration-schema-example',
     children: [
       // header: patient terms, language
@@ -99,7 +100,6 @@ const formSchema = [
             id: 'age',
             name: 'medical-record',
             label: 'Idade',
-            validation: 'required',
             'outer-class': 'col-span-1',
           },
           {
@@ -125,6 +125,9 @@ const formSchema = [
             name: 'phone',
             label: 'Telefone',
             validation: 'length:10',
+            validationMessages: {
+              length: 'Telefone deve conter 10 caracteres',
+            },
             placeholder: '(00) 0000-0000',
             'outer-class': 'col-span-2',
           },
@@ -288,7 +291,7 @@ const formSchema = [
                   },
                 ],
                 attrs: {
-                  class: 'flex justify-between items-end',
+                  class: 'flex justify-between',
                 },
               },
             },
@@ -299,6 +302,22 @@ const formSchema = [
             name: 'nationality',
             label: 'Naturalidade',
             validation: 'required',
+            sectionsSchema: {
+              label: {
+                children: [
+                  '$label',
+                  {
+                    $formkit: 'checkbox',
+                    id: 'pne',
+                    name: 'pne',
+                    label: 'Pne?',
+                  },
+                ],
+                attrs: {
+                  class: 'flex justify-between',
+                },
+              },
+            },
           },
         ],
       },
@@ -448,9 +467,42 @@ const formSchema = [
           },
         ],
       },
+      // action buttons
       {
-        $formkit: 'submit',
-        label: 'Registrar paciente',
+        $el: 'div',
+        attrs: {
+          class: 'flex justify-start',
+        },
+        children: [
+          {
+            $formkit: 'submit',
+            id: 'register__button',
+            name: 'register__button',
+            label: 'Registrar paciente',
+            'prefix-icon': 'check',
+          },
+          {
+            $formkit: 'button',
+            id: 'reset__button',
+            name: 'reset__button',
+            label: 'Registrar paciente',
+            'prefix-icon': 'close',
+          },
+          {
+            $formkit: 'button',
+            id: 'file__button',
+            name: 'file__button',
+            label: 'Registrar paciente',
+            'prefix-icon': 'info',
+          },
+          {
+            $formkit: 'button',
+            id: 'aux__button',
+            name: 'aux__button',
+            label: 'Registrar paciente',
+            'prefix-icon': 'expand',
+          },
+        ],
       },
     ],
   },

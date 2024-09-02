@@ -144,9 +144,9 @@ const submitHandler = async (event) => {
           </div>
           <div class="col-span-2">
             <FormKit
-              id="medical-record"
+              id="medical_record"
               type="text"
-              name="medical-record"
+              name="medical_record"
               label="Prontuário"
               placeholder="0000"
             />
@@ -188,10 +188,6 @@ const submitHandler = async (event) => {
               mask="(##) ####-####"
               name="phone"
               label="Telefone"
-              validation="length:10"
-              :validation-messages="{
-                length: 'Telefone deve conter 10 caracteres',
-              }"
               placeholder="(00) 0000-0000"
             />
           </div>
@@ -202,7 +198,7 @@ const submitHandler = async (event) => {
               mask="(##) #####-####"
               name="cellphone"
               label="Celular"
-              validation="required|length:11"
+              validation="required|*length:11"
               :validation-messages="{
                 length: 'Celular deve conter 11 caracteres',
               }"
@@ -227,13 +223,7 @@ const submitHandler = async (event) => {
             <FormKit id="contact" name="contact" type="text" label="Contato" />
           </div>
           <div class="col-span-1">
-            <FormKit
-              id="weight"
-              type="mask"
-              mask="###,#kg"
-              name="weight"
-              label="Peso"
-            />
+            <FormKit id="weight" type="number" name="weight" label="Peso" />
           </div>
 
           <div class="col-span-1">
@@ -251,35 +241,35 @@ const submitHandler = async (event) => {
         <div class="grid grid-cols-12 gap-3">
           <div class="col-span-2">
             <FormKit
-              id="document-type"
+              id="document_type"
               type="dropdown"
               label="Tipo Documento"
-              name="document-type"
+              name="document_type"
               :options="documentOptions"
             />
           </div>
           <div class="col-span-2">
             <FormKit
-              id="doc-number"
+              id="doc_number"
               type="number"
-              name="doc-number"
+              name="doc_number"
               validation="required|length:8,11"
               label="Nº Documento"
             />
           </div>
           <div class="col-span-2">
             <FormKit
-              id="issuing-body"
+              id="issuing_body"
               type="text"
-              name="issuing-body"
+              name="issuing_body"
               label="Órgão Emissor"
             />
           </div>
           <div class="col-span-2">
             <FormKit
-              id="shipment-date"
+              id="shipment_date"
               type="date"
-              name="shipment-date"
+              name="shipment_date"
               label="D. expedição"
             />
           </div>
@@ -305,19 +295,19 @@ const submitHandler = async (event) => {
         <div class="grid grid-cols-12 gap-3">
           <div class="col-span-4">
             <FormKit
-              id="marital-status"
+              id="marital_status"
               type="select"
               label="Estado civil"
-              name="marital-status"
+              name="marital_status"
               :options="maritalStatusOptions"
             />
           </div>
           <div class="col-span-2">
             <FormKit
-              id="skin-color"
+              id="skin_color"
               type="select"
               label="Cor"
-              name="skin-color"
+              name="skin_color"
               :options="skinColorOptions"
             />
           </div>
@@ -337,10 +327,10 @@ const submitHandler = async (event) => {
           <!-- has email -->
           <div>
             <FormKit
-              id="has-email"
+              id="has_email"
               type="checkbox"
               label="Não possui email?"
-              name="has-email"
+              name="has_email"
               :value="hasEmail"
               outer-class="relative top-0 right-0"
               @input="(event) => (hasEmail = event)"
@@ -368,15 +358,15 @@ const submitHandler = async (event) => {
         <!-- parental information -->
         <div class="grid grid-cols-2 gap-3">
           <FormKit
-            id="mother-name"
-            name="mother-name"
+            id="mother_name"
+            name="mother_name"
             type="text"
             label="Nome da Mãe"
             validation="required"
           />
           <FormKit
-            id="father-name"
-            name="father-name"
+            id="father_name"
+            name="father_name"
             type="text"
             label="Nome do Pai"
           />
@@ -385,15 +375,15 @@ const submitHandler = async (event) => {
         <!-- health information -->
         <div class="grid grid-cols-2 gap-3">
           <FormKit
-            id="health-plan"
+            id="health_plan"
             type="select"
             label="Plano de saúde"
-            name="health-plan"
+            name="health_plan"
             :options="healthPlanOptions"
           />
           <FormKit
-            id="health-plan-owner"
-            name="health-plan-owner"
+            id="health_plan_owner"
+            name="health_plan_owner"
             type="text"
             label="Titular"
           />
@@ -421,25 +411,25 @@ const submitHandler = async (event) => {
           </div>
           <div class="col-span-2">
             <FormKit
-              id="address-type"
+              id="address_type"
               type="select"
               label="Tipo"
-              name="address-type"
+              name="address_type"
               :options="residenceOptions"
             />
           </div>
           <div class="col-span-1">
             <FormKit
-              id="address-number"
-              name="address-number"
+              id="address_number"
+              name="address_number"
               type="number"
               label="Número"
             />
           </div>
           <div class="col-span-3">
             <FormKit
-              id="address-complement"
-              name="address-complement"
+              id="address_complement"
+              name="address_complement"
               type="text"
               label="Complemento"
             />
