@@ -331,7 +331,7 @@ const formSchema = [
                   },
                 ],
                 attrs: {
-                  class: 'flex justify-between',
+                  class: 'flex font-thin text-gray-500 custom__label',
                 },
               },
             },
@@ -354,7 +354,7 @@ const formSchema = [
                   },
                 ],
                 attrs: {
-                  class: 'flex justify-between',
+                  class: 'flex font-thin text-gray-500 custom__label',
                 },
               },
             },
@@ -580,3 +580,14 @@ const formSchema = [
     <pre wrap>{{ formValues }}</pre>
   </UContainer>
 </template>
+
+<style>
+.custom__label {
+  width: 100%;
+}
+
+.custom__label div {
+  display: flex;
+  justify-content: flex-end;
+}
+</style>
