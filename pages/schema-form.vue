@@ -1,6 +1,8 @@
 <script setup>
-import { FormKitSchema } from '@formkit/vue'
 import { ref, reactive } from 'vue'
+import { reset, getNode } from '@formkit/core'
+// FormKitSchemaDefinition
+import { FormKitSchema, changeLocale } from '@formkit/vue'
 import {
   document_types,
   marital_status,
@@ -25,12 +27,45 @@ const stateOptions = ref(state)
 
 const submitted = ref(false)
 const currentLang = ref('pt')
+const formValues = ref()
+
+const changeLocaleHandle = (newValue) => {
+  currentLang.value = newValue ? 'en' : 'pt'
+  changeLocale(currentLang.value)
+}
+const handleRegisterClick = (event) => {
+  event.preventDefault()
+  formValues.value = getNode('registration_form_schema').value
+}
+
+const handleResetClick = () => {
+  reset('registration_form_schema')
+}
+
+const handleFileClick = () => {
+  console.log('Botão File clicado')
+}
+
+const handleAuxClick = () => {
+  console.log('Botão Aux clicado')
+}
+
+const data = reactive({
+  changeLocaleHandle,
+  handleRegisterClick,
+  handleResetClick,
+  handleFileClick,
+  handleAuxClick,
+  maritalStatus: ['Solteiro(a)', 'Casado(a)', 'Divorciado(a)', 'União estável'],
+})
 
 const formSchema = [
+  // const formSchema: FormKitSchemaDefinition = [
   {
     $formkit: 'form',
+    id: 'registration_form_schema',
     actions: false,
-    id: 'registration-schema-example',
+    onSubmit: '$handleRegisterClick',
     children: [
       // header: patient terms, language
       {
@@ -58,6 +93,7 @@ const formSchema = [
             'on-value-label': 'EN',
             'value-label-display': 'inner',
             'outer-class': 'col-start-12',
+            onInput: '$changeLocaleHandle',
           },
           // select theme !!!!!!
         ],
@@ -100,13 +136,15 @@ const formSchema = [
             id: 'age',
             name: 'medical-record',
             label: 'Idade',
+            value: '$get(birthdate)',
             'outer-class': 'col-span-1',
           },
           {
-            $formkit: 'number',
+            $formkit: 'dropdown',
             id: 'sex',
             name: 'sex',
             label: 'Sexo',
+            options: sexOptions.value,
             'outer-class': 'col-span-1',
           },
         ],
@@ -159,16 +197,18 @@ const formSchema = [
             'outer-class': 'col-span-4',
           },
           {
-            $formkit: 'number',
+            $formkit: 'unit',
             id: 'weight',
             name: 'weight',
+            unit: 'kilogram',
             label: 'Peso',
             'outer-class': 'col-span-1',
           },
           {
-            $formkit: 'number',
+            $formkit: 'unit',
             id: 'height',
             name: 'height',
+            unit: 'centimeter',
             label: 'Altura',
             'outer-class': 'col-span-1',
           },
@@ -241,7 +281,7 @@ const formSchema = [
             id: 'marital-status',
             name: 'marital-status',
             label: 'Estado civil',
-            options: maritalStatusOptions.value,
+            options: '$maritalStatus',
             'outer-class': 'col-span-4',
           },
           {
@@ -480,27 +520,31 @@ const formSchema = [
             name: 'register__button',
             label: 'Registrar paciente',
             'prefix-icon': 'check',
+            onClick: '$handleRegisterClick',
           },
           {
             $formkit: 'button',
             id: 'reset__button',
             name: 'reset__button',
-            label: 'Registrar paciente',
+            label: 'Limpar',
             'prefix-icon': 'close',
+            onClick: '$handleResetClick',
           },
           {
             $formkit: 'button',
             id: 'file__button',
             name: 'file__button',
-            label: 'Registrar paciente',
+            label: 'Info',
             'prefix-icon': 'info',
+            onClick: '$handleFileClick',
           },
           {
             $formkit: 'button',
             id: 'aux__button',
             name: 'aux__button',
-            label: 'Registrar paciente',
+            label: 'Auxiliar',
             'prefix-icon': 'expand',
+            onClick: '$handleAuxClick',
           },
         ],
       },
@@ -531,7 +575,8 @@ const formSchema = [
     </UButton>
 
     <UCard class="m-10">
-      <FormKitSchema :schema="formSchema" />
+      <FormKitSchema :schema="formSchema" :data="data" />
     </UCard>
+    <pre wrap>{{ formValues }}</pre>
   </UContainer>
 </template>

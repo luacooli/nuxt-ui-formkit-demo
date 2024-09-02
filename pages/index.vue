@@ -1,37 +1,4 @@
 <script setup>
-// {
-//   $formkit: 'email',
-//   id: 'email',
-//   name: 'email',
-//   label: false,
-//   children: [
-//     {
-//       $el: 'label',
-//       attrs: {
-//         for: 'email',
-//       }
-//     },
-//     children: [
-//       {
-//         $el: 'span',
-
-//         // children: [
-//         //   {
-//         //     $formkit: 'checkbox',
-//         //     id: 'has-email',
-//         //     name: 'has-email',
-//         //     value: 'hasEmail',
-//         //     label: 'Não possui email?',
-//         //     'outer-class': 'col-span-4',
-//         //   },
-//         // ],
-//       },
-//     ],
-//   ],
-//   placeholder: 'vikas@school.com',
-//   validation: 'email',
-//   'outer-class': 'col-span-2',
-// },
 import { ref } from 'vue'
 import {
   document_types,
@@ -45,6 +12,7 @@ import {
   state,
 } from '~/components/new-patient/select-data'
 import { changeLocale } from '@formkit/vue'
+import { reset } from '@formkit/core'
 
 // const toast = useToast()
 
@@ -61,15 +29,22 @@ const stateOptions = ref(state)
 const submitted = ref(false)
 const currentLang = ref('pt')
 const hasEmail = ref(false)
+const formValues = ref()
 
 const changeLocaleHandle = () => {
   currentLang.value = currentLang.value === 'pt' ? 'en' : 'pt'
   changeLocale(currentLang.value)
 }
 
+const handleResetClick = () => {
+  reset('registration_form')
+}
+
 const submitHandler = async (event) => {
   await new Promise((r) => setTimeout(r, 1000))
   submitted.value = true
+
+  console.log(event)
 
   // toast.add({ title: 'Hello world!' })
 }
@@ -90,9 +65,11 @@ const submitHandler = async (event) => {
 
     <UCard class="m-10">
       <FormKit
-        id="registration-example"
+        id="registration_form"
         type="form"
         :actions="false"
+        #default="{ value }"
+        v-model="formValues"
         submit-label="Registrar dados"
         @submit.preventDefault="submitHandler"
       >
@@ -172,7 +149,7 @@ const submitHandler = async (event) => {
           />
           <FormKit
             id="sex"
-            type="select"
+            type="dropdown"
             label="Sexo"
             name="sex"
             :options="sexOptions"
@@ -223,15 +200,21 @@ const submitHandler = async (event) => {
             <FormKit id="contact" name="contact" type="text" label="Contato" />
           </div>
           <div class="col-span-1">
-            <FormKit id="weight" type="number" name="weight" label="Peso" />
+            <FormKit
+              id="weight"
+              type="unit"
+              unit="kilogram"
+              name="weight"
+              label="Peso"
+            />
           </div>
 
           <div class="col-span-1">
             <FormKit
               id="height"
-              type="mask"
-              mask="#,##m"
               name="height"
+              type="unit"
+              unit="centimeter"
               label="Altura"
             />
           </div>
@@ -296,7 +279,7 @@ const submitHandler = async (event) => {
           <div class="col-span-4">
             <FormKit
               id="marital_status"
-              type="select"
+              type="dropdown"
               label="Estado civil"
               name="marital_status"
               :options="maritalStatusOptions"
@@ -305,7 +288,7 @@ const submitHandler = async (event) => {
           <div class="col-span-2">
             <FormKit
               id="skin_color"
-              type="select"
+              type="dropdown"
               label="Cor"
               name="skin_color"
               :options="skinColorOptions"
@@ -376,7 +359,7 @@ const submitHandler = async (event) => {
         <div class="grid grid-cols-2 gap-3">
           <FormKit
             id="health_plan"
-            type="select"
+            type="dropdown"
             label="Plano de saúde"
             name="health_plan"
             :options="healthPlanOptions"
@@ -412,7 +395,7 @@ const submitHandler = async (event) => {
           <div class="col-span-2">
             <FormKit
               id="address_type"
-              type="select"
+              type="dropdown"
               label="Tipo"
               name="address_type"
               :options="residenceOptions"
@@ -449,7 +432,7 @@ const submitHandler = async (event) => {
           <div class="col-span-5">
             <FormKit
               id="city"
-              type="select"
+              type="dropdown"
               label="Cidade"
               name="city"
               :options="cityOptions"
@@ -458,10 +441,11 @@ const submitHandler = async (event) => {
           <div class="col-span-1">
             <FormKit
               id="state"
-              type="select"
+              type="dropdown"
               label="Estado"
               name="state"
               :options="stateOptions"
+              inputClass="BAZINGA"
             />
           </div>
           <div class="col-span-2">
@@ -498,6 +482,7 @@ const submitHandler = async (event) => {
             type="button"
             label="Fechar"
             prefix-icon="close"
+            @click="handleResetClick"
           />
           <FormKit
             id="file__button"
@@ -514,5 +499,7 @@ const submitHandler = async (event) => {
         </Formkit>
       </FormKit>
     </UCard>
+
+    <pre wrap>{{ formValues }}</pre>
   </UContainer>
 </template>
