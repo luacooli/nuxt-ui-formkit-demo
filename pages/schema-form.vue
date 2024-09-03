@@ -146,6 +146,7 @@ const formSchema = [
             label: 'Sexo',
             options: sexOptions.value,
             'outer-class': 'col-span-1',
+            'inner-class': 'custom__dropdown',
           },
         ],
       },
@@ -482,6 +483,7 @@ const formSchema = [
             label: 'Estado',
             options: stateOptions.value,
             'outer-class': 'col-span-1',
+            'inner-class': 'custom__dropdown',
           },
           {
             $formkit: 'text',
@@ -589,5 +591,9 @@ const formSchema = [
 .custom__label div {
   display: flex;
   justify-content: flex-end;
+}
+
+.custom__dropdown button div {
+  max-width: 50%;
 }
 </style>
